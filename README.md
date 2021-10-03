@@ -1,2 +1,2 @@
 # 2048
-2048 made of C!
+2048 made of C
