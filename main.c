@@ -64,9 +64,9 @@ void homepage(void){
     gotoxy(x+2,y+6); printf("- Press anything to start -");
 
     gotoxy(x+0,y+9);  printf("Operation Keys :");
-    gotoxy(x+2,y+11); printf("﹦   : Pull Up");
-    gotoxy(x+0,y+12); printf("８  Ⅰ : Pull Left & Right");
-    gotoxy(x+2,y+13); printf("∩   : Pull Down");
+    gotoxy(x+2,y+11); printf("△   : Pull Up");
+    gotoxy(x+0,y+12); printf("◁  ▷ : Pull Left & Right");
+    gotoxy(x+2,y+13); printf("▽   : Pull Down");
 
     getBestScore();
     gotoxy(x+32,y+9);  printf("Top Score :");
