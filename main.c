@@ -15,6 +15,8 @@ void getBestScore(void);
 void play(void);
 void printInterface(void);
 void printBoard(void);
+void gameover(void);
+void reset(void);
 
 void goLeft(void);
 void goRight(void);
@@ -52,7 +54,6 @@ int main(){
     setCursorType(NOCURSOR);
     system("title 2048");
     homepage();
-    play();
 }
 
 void homepage(void){
@@ -75,6 +76,7 @@ void homepage(void){
         if (kbhit()) break;
     
     system("cls");
+    play();
 }
 
 void title(int x, int y){
@@ -86,7 +88,7 @@ void title(int x, int y){
 }
 
 void getBestScore(){
-    FILE *file = fopen("score.bat", "rt");
+    FILE *file = fopen("score.dat", "rt");
     if (file == 0) best_score=0;
     else {
         fscanf(file, "%d", &best_score);
@@ -110,7 +112,7 @@ void printInterface(){
 }
 
 void printBoard(){
-    int x=6, y=10;
+    int x=6, y=11;
 
     gotoxy(x,y);   printf("忙式式式成式式式成式式式成式式式忖");
     gotoxy(x,y+1); printf("弛   弛   弛   弛   弛");
@@ -124,6 +126,7 @@ void printBoard(){
 
     for (int i = 0; i < 4; i++){
         for (int j = 0; j < 4; j++){
+            if (board[i][j] == 0) continue;
             gotoxy(x+j*4+2, y+i*2+1); printf("%d", board[i][j]);
         }
     }
@@ -137,20 +140,21 @@ void play(){
         for (int i = 0; i < 4; i++){
             for (int j = 0; j < 4; j++){
                 if (board[i][j] == 0){
-                    empty[tmp][0] = j;
-                    empty[tmp][1] = i;
+                    empty[tmp][0] = i;
+                    empty[tmp][1] = j;
                     tmp++;
                 }
             }
         }
 
-        srand((unsigned int)time(NULL));
+        if (tmp == 0) break;
 
-        int point1 = rand() % tmp;
-        int point2 = rand() % tmp;
-        
-        board[empty[point1][0]][empty[point1][1]] = 2;
-        board[empty[point2][0]][empty[point2][1]] = 2;
+        srand(time(NULL));
+        int pos1 = rand() % tmp;
+        int pos2 = rand() % tmp;
+
+        board[empty[pos1][0]][empty[pos1][1]] = 2;
+        board[empty[pos2][0]][empty[pos2][1]] = 2;
 
         printInterface();
         printBoard();
@@ -174,22 +178,173 @@ void play(){
             }
             break;
         }
+        if (score > best_score) best_score = score;
     } while (1);
-    Sleep(10000);
+    gameover();
 }
 
 void goLeft(){
-    printf("Left");
+    for (int i = 0; i < 4; i++){
+        for (int j = 1; j < 4; j++){
+            int x=j, y=i;
+            while (board[y][x-1] == 0 && x > 0){
+                board[y][x-1] = board[y][x];
+                board[y][x--] = 0;
+            }
+        }
+    }
+
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            if (board[i][j] == 0) continue;
+            if (board[i][j] == board[i][j+1] && j < 3){
+                score += board[i][j] *= 2;
+                board[i][j+1] = 0;
+            }
+        }
+    }
+    
+    for (int i = 0; i < 4; i++){
+        for (int j = 1; j < 4; j++){
+            int x=j, y=i;
+            while (board[y][x-1] == 0 && x > 0){
+                board[y][x-1] = board[y][x];
+                board[y][x--] = 0;
+            }
+        }
+    }
 }
 
 void goRight(){
-    printf("Right");
+    for (int i = 0; i < 4; i++){
+        for (int j = 2; j >= 0; j--){
+            int x=j, y=i;
+            while (board[y][x+1] == 0 && x < 3){
+                board[y][x+1] = board[y][x];
+                board[y][x++] = 0;
+            }
+        }
+    }
+
+    for (int i = 0; i < 4; i++){
+        for (int j = 3; j >= 0; j--){
+            if (board[i][j] == 0) continue;
+            if (board[i][j] == board[i][j-1] && j > 0){
+                score += board[i][j] *= 2;
+                board[i][j-1] = 0;
+            }
+        }
+    }
+    
+    for (int i = 0; i < 4; i++){
+        for (int j = 2; j >= 0; j--){
+            int x=j, y=i;
+            while (board[y][x+1] == 0 && x < 3){
+                board[y][x+1] = board[y][x];
+                board[y][x++] = 0;
+            }
+        }
+    }
 }
 
 void goUp(){
-    printf("Up");
+    for (int i = 1; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            int x=j, y=i;
+            while (board[y-1][x] == 0 && y > 0){
+                board[y-1][x] = board[y][x];
+                board[y--][x] = 0;
+            }
+        }
+    }
+
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            if (board[i][j] == 0) continue;
+            if (board[i][j] == board[i+1][j] && i < 3){
+                score += board[i][j] *= 2;
+                board[i+1][j] = 0;
+            }
+        }
+    }
+    
+    for (int i = 1; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            int x=j, y=i;
+            while (board[y-1][x] == 0 && y > 0){
+                board[y-1][x] = board[y][x];
+                board[y--][x] = 0;
+            }
+        }
+    }
 }
 
 void goDown(){
-    printf("Down");
+    for (int i = 2; i >= 0; i--){
+        for (int j = 0; j < 4; j++){
+            int x=j, y=i;
+            while (board[y+1][x] == 0 && y < 3){
+                board[y+1][x] = board[y][x];
+                board[y++][x] = 0;
+            }
+        }
+    }
+
+    for (int i = 3; i >= 0; i--){
+        for (int j = 0; j < 4; j++){
+            if (board[i][j] == 0) continue;
+            if (board[i][j] == board[i-1][j] && i > 0){
+                score += board[i][j] *= 2;
+                board[i-1][j] = 0;
+            }
+        }
+    }
+    
+    for (int i = 2; i >= 0; i--){
+        for (int j = 0; j < 4; j++){
+            int x=j, y=i;
+            while (board[y+1][x] == 0 && y < 3){
+                board[y+1][x] = board[y][x];
+                board[y++][x] = 0;
+            }
+        }
+    }
+}
+
+void gameover(){
+    int x=5, y=3;
+    char e;
+
+    gotoxy(x,y);   printf("  ﹥﹥﹥    ﹥﹥    ﹥      ﹥  ﹥﹥﹥﹥      ﹥﹥﹥﹥  ﹥      ﹥  ﹥﹥﹥﹥  ﹥﹥﹥﹥"); Sleep(50);
+    gotoxy(x,y+1); printf("﹥        ﹥    ﹥  ﹥﹥  ﹥﹥  ﹥            ﹥    ﹥  ﹥      ﹥  ﹥        ﹥    ﹥"); Sleep(50);
+    gotoxy(x,y+2); printf("﹥  ﹥﹥  ﹥﹥﹥﹥  ﹥  ﹥  ﹥  ﹥﹥﹥﹥      ﹥    ﹥  ﹥      ﹥  ﹥﹥﹥﹥  ﹥﹥﹥"); Sleep(50);
+    gotoxy(x,y+3); printf("﹥    ﹥  ﹥    ﹥  ﹥      ﹥  ﹥            ﹥    ﹥    ﹥  ﹥    ﹥        ﹥    ﹥"); Sleep(50);
+    gotoxy(x,y+4); printf("﹥﹥﹥﹥  ﹥    ﹥  ﹥      ﹥  ﹥﹥﹥﹥      ﹥﹥﹥﹥      ﹥      ﹥﹥﹥﹥  ﹥    ﹥"); Sleep(100);
+    
+    if (score == best_score && score != 0){
+        gotoxy(x+2,y+6); printf("≠≧≠ New Best Score!! ≠≧≠");
+
+        FILE* file = fopen("score.dat", "wt");
+        fprintf(file, "%d", score);
+    }
+    Sleep(3000);
+    
+    gotoxy(x+2,y+6); printf("Press 'y' to try again, 'n' to exit the game.");
+    
+    while (kbhit()) getch();
+    e = getch();
+    if (e == 'y') reset();
+    else system("exit");
+}
+
+void reset(){
+    system("cls");
+    score = 0;
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 4; j++){
+            board[i][j] = 0;
+        }
+    }
+
+    homepage();
 }
