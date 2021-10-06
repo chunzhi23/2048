@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <windows.h>
 #include <conio.h>
 #include <time.h>
-#include <stdbool.h>
 #define ESC 27
 
 int score;
@@ -54,7 +54,7 @@ void setCursorType(CURSOR_TYPE e){
 }
 
 int main(){
-    //system("chcp 65001  > nul");
+    system("chcp 65001  > nul");
     setCursorType(NOCURSOR);
     system("title 2048");
     homepage();
@@ -109,8 +109,8 @@ void printInterface(){
 
     title(x,y);
 
-    gotoxy(x+20+(board_SIZE-4)*4,y+8); printf("≧ Score : %d", score);
-    gotoxy(x+20+(board_SIZE-4)*4,y+9); printf("≠ Best Score : %d", best_score);
+    gotoxy(x+20+(board_SIZE-4)*4,y+8); printf("☆ Score : %d", score);
+    gotoxy(x+20+(board_SIZE-4)*4,y+9); printf("★ Best Score : %d", best_score);
 
     gotoxy(x+20+(board_SIZE-4)*4,y+11);  printf("Operation Keys :");
     gotoxy(x+22+(board_SIZE-4)*4,y+13); printf("△   : Pull Up");
