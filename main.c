@@ -62,17 +62,17 @@ void homepage(void){
     int x=5, y=3, e;
 
     title(x,y);
-    
+
     gotoxy(x+2,y+6); printf("- Press anything to start -");
 
     gotoxy(x+0,y+9);  printf("Operation Keys :");
-    gotoxy(x+2,y+11); printf("бт   : Pull Up");
-    gotoxy(x+0,y+12); printf("в╖  в╣ : Pull Left & Right");
-    gotoxy(x+2,y+13); printf("бф   : Pull Down");
+    gotoxy(x+2,y+11); printf("тЦ│   : Pull Up");
+    gotoxy(x+0,y+12); printf("тЧБ  тЦ╖ : Pull Left & Right");
+    gotoxy(x+2,y+13); printf("тЦ╜   : Pull Down");
 
     getBestScore();
     gotoxy(x+32,y+9);  printf("Top Score :");
-    gotoxy(x+32,y+11); printf("б┌ Best : %d", best_score);
+    gotoxy(x+32,y+11); printf("тШЕ Best : %d", best_score);
 
 	while (kbhit()) getch();
     e = getch();
@@ -86,11 +86,11 @@ void homepage(void){
 }
 
 void title(int x, int y){
-    gotoxy(x,y);   printf("бсбсбс  бсбсбс  бс  бс  бсбсбс");Sleep(50);
-    gotoxy(x,y+1); printf("    бс  бс  бс  бс  бс  бс  бс");Sleep(50);
-    gotoxy(x,y+2); printf("бсбсбс  бс  бс  бсбсбс  бсбсбс");Sleep(50);
-    gotoxy(x,y+3); printf("бс      бс  бс      бс  бс  бс");Sleep(50);
-    gotoxy(x,y+4); printf("бсбсбс  бсбсбс      бс  бсбсбс");Sleep(50);
+    gotoxy(x,y);   printf("тЦатЦатЦа  тЦатЦатЦа  тЦа  тЦа  тЦатЦатЦа");Sleep(50);
+    gotoxy(x,y+1); printf("    тЦа  тЦа  тЦа  тЦа  тЦа  тЦа  тЦа");Sleep(50);
+    gotoxy(x,y+2); printf("тЦатЦатЦа  тЦа  тЦа  тЦатЦатЦа  тЦатЦатЦа");Sleep(50);
+    gotoxy(x,y+3); printf("тЦа      тЦа  тЦа      тЦа  тЦа  тЦа");Sleep(50);
+    gotoxy(x,y+4); printf("тЦатЦатЦа  тЦатЦатЦа      тЦа  тЦатЦатЦа");Sleep(50);
 }
 
 void getBestScore(){
@@ -107,28 +107,28 @@ void printInterface(){
     
     title(x,y);
 
-    gotoxy(x+20,y+8); printf("б┘ Score : %d", score);
-    gotoxy(x+20,y+9); printf("б┌ Best Score : %d", best_score);
+    gotoxy(x+20,y+8); printf("тЙз Score : %d", score);
+    gotoxy(x+20,y+9); printf("тЙа Best Score : %d", best_score);
 
     gotoxy(x+20,y+11);  printf("Operation Keys :");
-    gotoxy(x+22,y+13); printf("бт   : Pull Up");
-    gotoxy(x+20,y+14); printf("в╖  в╣ : Pull Left & Right");
-    gotoxy(x+22,y+15); printf("бф   : Pull Down");
+    gotoxy(x+22,y+13); printf("тЦ│   : Pull Up");
+    gotoxy(x+20,y+14); printf("тЧБ  тЦ╖ : Pull Left & Right");
+    gotoxy(x+22,y+15); printf("тЦ╜   : Pull Down");
 
 }
 
 void printBoard(){
     int x=6, y=11, i, j;
 
-    gotoxy(x,y);   printf("жгжбжбжбжижбжбжбжижбжбжбжижбжбжбжд");
-    gotoxy(x,y+1); printf("жв   жв   жв   жв   жв");
-    gotoxy(x,y+2); printf("жзжбжбжбжлжбжбжбжлжбжбжбжлжбжбжбжй");
-    gotoxy(x,y+3); printf("жв   жв   жв   жв   жв");
-    gotoxy(x,y+4); printf("жзжбжбжбжлжбжбжбжлжбжбжбжлжбжбжбжй");
-    gotoxy(x,y+5); printf("жв   жв   жв   жв   жв");
-    gotoxy(x,y+6); printf("жзжбжбжбжлжбжбжбжлжбжбжбжлжбжбжбжй");
-    gotoxy(x,y+7); printf("жв   жв   жв   жв   жв");
-    gotoxy(x,y+8); printf("жжжбжбжбжкжбжбжбжкжбжбжбжкжбжбжбже");
+    gotoxy(x,y);   printf("тФМтФАтФАтФАтФмтФАтФАтФАтФмтФАтФАтФАтФмтФАтФАтФАтФР");
+    gotoxy(x,y+1); printf("тФВ   тФВ   тФВ   тФВ   тФВ");
+    gotoxy(x,y+2); printf("тФЬтФАтФАтФАтФ╝тФАтФАтФАтФ╝тФАтФАтФАтФ╝тФАтФАтФАтФд");
+    gotoxy(x,y+3); printf("тФВ   тФВ   тФВ   тФВ   тФВ");
+    gotoxy(x,y+4); printf("тФЬтФАтФАтФАтФ╝тФАтФАтФАтФ╝тФАтФАтФАтФ╝тФАтФАтФАтФд");
+    gotoxy(x,y+5); printf("тФВ   тФВ   тФВ   тФВ   тФВ");
+    gotoxy(x,y+6); printf("тФЬтФАтФАтФАтФ╝тФАтФАтФАтФ╝тФАтФАтФАтФ╝тФАтФАтФАтФд");
+    gotoxy(x,y+7); printf("тФВ   тФВ   тФВ   тФВ   тФВ");
+    gotoxy(x,y+8); printf("тФФтФАтФАтФАтФ┤тФАтФАтФАтФ┤тФАтФАтФАтФ┤тФАтФАтФАтФШ");
 
     for (i = 0; i < 4; i++){
         for (j = 0; j < 4; j++){
@@ -328,14 +328,14 @@ void gameover(){
     int x=5, y=3;
     char e;
 
-    gotoxy(x,y);   printf("  бсбсбс    бсбс    бс      бс  бсбсбсбс      бсбсбсбс  бс      бс  бсбсбсбс  бсбсбсбс"); Sleep(50);
-    gotoxy(x,y+1); printf("бс        бс    бс  бсбс  бсбс  бс            бс    бс  бс      бс  бс        бс    бс"); Sleep(50);
-    gotoxy(x,y+2); printf("бс  бсбс  бсбсбсбс  бс  бс  бс  бсбсбсбс      бс    бс  бс      бс  бсбсбсбс  бсбсбс"); Sleep(50);
-    gotoxy(x,y+3); printf("бс    бс  бс    бс  бс      бс  бс            бс    бс    бс  бс    бс        бс    бс"); Sleep(50);
-    gotoxy(x,y+4); printf("бсбсбсбс  бс    бс  бс      бс  бсбсбсбс      бсбсбсбс      бс      бсбсбсбс  бс    бс"); Sleep(100);
+    gotoxy(x,y);   printf("  тЦатЦатЦа    тЦатЦа    тЦа      тЦа  тЦатЦатЦатЦа      тЦатЦатЦатЦа  тЦа      тЦа  тЦатЦатЦатЦа  тЦатЦатЦатЦа"); Sleep(50);
+    gotoxy(x,y+1); printf("тЦа        тЦа    тЦа  тЦатЦа  тЦатЦа  тЦа            тЦа    тЦа  тЦа      тЦа  тЦа        тЦа    тЦа"); Sleep(50);
+    gotoxy(x,y+2); printf("тЦа  тЦатЦа  тЦатЦатЦатЦа  тЦа  тЦа  тЦа  тЦатЦатЦатЦа      тЦа    тЦа  тЦа      тЦа  тЦатЦатЦатЦа  тЦатЦатЦа"); Sleep(50);
+    gotoxy(x,y+3); printf("тЦа    тЦа  тЦа    тЦа  тЦа      тЦа  тЦа            тЦа    тЦа    тЦа  тЦа    тЦа        тЦа    тЦа"); Sleep(50);
+    gotoxy(x,y+4); printf("тЦатЦатЦатЦа  тЦа    тЦа  тЦа      тЦа  тЦатЦатЦатЦа      тЦатЦатЦатЦа      тЦа      тЦатЦатЦатЦа  тЦа    тЦа"); Sleep(100);
     
     if (score == best_score && score != 0){
-        gotoxy(x+2,y+6); printf("б┌б┘б┌ New Best Score!! б┌б┘б┌");
+        gotoxy(x+2,y+6); printf("тШЕтШЖтШЕ New Best Score!! тШЕтШЖтШЕ");
 
         FILE* file = fopen("score.dat", "wt");
         fprintf(file, "%d", score);
