@@ -187,7 +187,7 @@ void play(){
         srand(time(NULL));
         int pos1 = rand() % tmp;
         int pos2 = rand() % tmp;
-        while(pos1 == pos2){
+        while(pos1 == pos2 && tmp != 1){
             pos2 = rand() % tmp;
         }
 
