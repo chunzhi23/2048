@@ -220,8 +220,8 @@ void play(){
 
 void goLeft(){
 	int i, j;
-    for (i = 0; i < 4; i++){
-        for (j = 1; j < 4; j++){
+    for (i = 0; i < board_SIZE; i++){
+        for (j = 1; j < board_SIZE; j++){
             int x=j, y=i;
             while (board[y][x-1] == 0 && x > 0){
                 board[y][x-1] = board[y][x];
@@ -230,8 +230,8 @@ void goLeft(){
         }
     }
 
-    for (i = 0; i < 4; i++){
-        for (j = 0; j < 4; j++){
+    for (i = 0; i < board_SIZE; i++){
+        for (j = 0; j < board_SIZE; j++){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i][j+1] && j < 3){
                 score += board[i][j] *= 2;
@@ -240,8 +240,8 @@ void goLeft(){
         }
     }
 
-    for (i = 0; i < 4; i++){
-        for (j = 1; j < 4; j++){
+    for (i = 0; i < board_SIZE; i++){
+        for (j = 1; j < board_SIZE; j++){
             int x=j, y=i;
             while (board[y][x-1] == 0 && x > 0){
                 board[y][x-1] = board[y][x];
@@ -254,7 +254,7 @@ void goLeft(){
 void goRight(){
 	int i, j;
     for (i = 0; i < board_SIZE; i++){
-        for (j = 2; j >= 0; j--){
+        for (j = board_SIZE-2; j >= 0; j--){
             int x=j, y=i;
             while (board[y][x+1] == 0 && x < board_SIZE-1){
                 board[y][x+1] = board[y][x];
@@ -264,7 +264,7 @@ void goRight(){
     }
 
     for (i = 0; i < board_SIZE; i++){
-        for (j = 3; j >= 0; j--){
+        for (j = board_SIZE-1; j >= 0; j--){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i][j-1] && j > 0){
                 score += board[i][j] *= 2;
@@ -274,7 +274,7 @@ void goRight(){
     }
 
     for (i = 0; i < board_SIZE; i++){
-        for (j = 2; j >= 0; j--){
+        for (j = board_SIZE-2; j >= 0; j--){
             int x=j, y=i;
             while (board[y][x+1] == 0 && x < board_SIZE-1){
                 board[y][x+1] = board[y][x];
@@ -319,7 +319,7 @@ void goUp(){
 
 void goDown(){
 	int i, j;
-    for (i = 2; i >= 0; i--){
+    for (i = board_SIZE-2; i >= 0; i--){
         for (j = 0; j < board_SIZE; j++){
             int x=j, y=i;
             while (board[y+1][x] == 0 && y < board_SIZE-1){
@@ -329,7 +329,7 @@ void goDown(){
         }
     }
 
-    for (i = 3; i >= 0; i--){
+    for (i = board_SIZE-1; i >= 0; i--){
         for (j = 0; j < board_SIZE; j++){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i-1][j] && i > 0){
@@ -339,7 +339,7 @@ void goDown(){
         }
     }
 
-    for (i = 2; i >= 0; i--){
+    for (i = board_SIZE-2; i >= 0; i--){
         for (j = 0; j < board_SIZE; j++){
             int x=j, y=i;
             while (board[y+1][x] == 0 && y < board_SIZE-1){
