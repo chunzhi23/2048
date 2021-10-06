@@ -9,7 +9,7 @@
 int score;
 int best_score;
 
-int board_SIZE = 2;
+int board_SIZE = 4;
 int board[10][10]; //Global variables are automatically set to 0
 
 void title(int x, int y);
