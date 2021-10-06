@@ -9,7 +9,7 @@
 int score;
 int best_score;
 
-int board_SIZE = 4;
+int board_SIZE = 2;
 int board[10][10]; //Global variables are automatically set to 0
 
 void title(int x, int y);
@@ -380,8 +380,8 @@ void reset(){
 	int i, j;
     system("cls");
     score = 0;
-    for (i = 0; i < 4; i++){
-        for (j = 0; j < 4; j++){
+    for (i = 0; i < board_SIZE; i++){
+        for (j = 0; j < board_SIZE; j++){
             board[i][j] = 0;
         }
     }
