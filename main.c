@@ -76,13 +76,24 @@ void homepage(void){
     gotoxy(x+32,y+9);  printf("Top Score :");
     gotoxy(x+32,y+11); printf("★ Best : %d", best_score);
 
-	while (kbhit()) getch();
-    e = getch();
-    if (e == ESC){
-    	system("cls");
-    	exit(0);
+    while(true){
+        gotoxy(x+32,y+15); if(board_SIZE==10)printf("△");else printf("▲");
+        gotoxy(x+32,y+16); printf("%2d",board_SIZE);
+        gotoxy(x+32,y+17); if(board_SIZE==3)printf("▽");else printf("▼");
+        //while (kbhit()) getch(); no need
+        int _e = getch();
+        if(_e==224 || _e == 0)e = getch(); //exception for extended keys (including arrow keys)
+        //printf("%d",e); // for debug use
+        if (_e == ESC){
+            system("cls");
+            exit(0);
+        }else if (e == 72 && _e==224){
+            if(board_SIZE!=10)board_SIZE++;
+        }else if (e == 80 && _e==224){
+            if(board_SIZE!=3)board_SIZE--;
+        }else break;
 	}
-
+    //system("pause"); //for debug use
     system("cls");
     play();
 }
@@ -176,7 +187,9 @@ void play(){
         srand(time(NULL));
         int pos1 = rand() % tmp;
         int pos2 = rand() % tmp;
-
+        while(pos1 == pos2){
+            pos2 = rand() % tmp;
+        }
 
         if(firstplay == true){
             board[empty[pos1][0]][empty[pos1][1]] = 2;
@@ -191,7 +204,7 @@ void play(){
         printBoard();
 
         while (1){
-            e = _getch();
+            e = getch();
             switch (e){
                 case 75:
                     goLeft();
