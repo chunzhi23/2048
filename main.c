@@ -76,10 +76,12 @@ void homepage(void){
     gotoxy(x+32,y+9);  printf("Top Score :");
     gotoxy(x+32,y+11); printf("★ Best : %d", best_score);
 
+    gotoxy(x+32,y+14); printf("User Interface : ");
+
     while(true){
-        gotoxy(x+32,y+15); if(board_SIZE==10)printf("△");else printf("▲");
-        gotoxy(x+32,y+16); printf("%2d",board_SIZE);
-        gotoxy(x+32,y+17); if(board_SIZE==3)printf("▽");else printf("▼");
+        gotoxy(x+32,y+16); if(board_SIZE==10)printf("△");else printf("▲");
+        gotoxy(x+32,y+17); printf("%2d",board_SIZE);
+        gotoxy(x+32,y+18); if(board_SIZE==3)printf("▽");else printf("▼");
         //while (kbhit()) getch(); no need
         int _e = getch();
         if(_e==224 || _e == 0)e = getch(); //exception for extended keys (including arrow keys)
