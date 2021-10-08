@@ -9,8 +9,10 @@
 int score;
 int best_score;
 
-int board_SIZE = 4;
+int board_SIZE = 2;
 int board[10][10]; //Global variables are automatically set to 0
+bool flag_MOVED; //variable checking which the numbers have moved
+
 
 void title(int x, int y);
 void homepage(void);
@@ -168,6 +170,27 @@ void printBoard(){
         }
     }
 }
+typedef struct _coord{
+    int x;
+    int y;
+} coord;
+bool checkBoardCoord(coord c){
+    int target = board[c.y][c.x];
+    coord cx = c;
+    cx.x++;
+    coord cy = c;
+    cy.y++;
+    bool flag=false;
+    if(c.x!=board_SIZE-1)flag = (board[c.y][c.x+1]==target)?true:checkBoardCoord(cx);
+    if(c.y!=board_SIZE-1 && flag == false)flag = (board[c.y+1][c.x]==target)?true:checkBoardCoord(cy);
+    return flag;
+}
+bool checkGameOver(){
+    coord p;
+    p.x=0;
+    p.y=0;
+    return checkBoardCoord(p);
+}
 
 void play(){
     char e;
@@ -184,12 +207,12 @@ void play(){
             }
         }
 
-        if (tmp == 0) break;
+        if (tmp == 0)if(!checkGameOver())break;
 
         srand(time(NULL));
         int pos1 = rand() % tmp;
         int pos2 = rand() % tmp;
-        while(pos1 == pos2 && tmp != 1){
+        while(pos1 == pos2 && tmp != 1 && firstplay == true){
             pos2 = rand() % tmp;
         }
 
@@ -197,14 +220,15 @@ void play(){
             board[empty[pos1][0]][empty[pos1][1]] = 2;
             board[empty[pos2][0]][empty[pos2][1]] = 2;
             firstplay = false;
-        }else{
+        }else if(tmp!=0){
             if(rand() % 5 != 0)board[empty[pos1][0]][empty[pos1][1]] = 2;
             else board[empty[pos1][0]][empty[pos1][1]] = 4;
+            tmp--;
         }
-
         printInterface();
         printBoard();
-
+        if(tmp == 0)if(!checkGameOver())break;
+        flag_MOVED = false;
         while (1){
             e = getch();
             switch (e){
@@ -223,10 +247,11 @@ void play(){
                 case ESC:
                 	system("cls");
                 	exit(0);
+                	break;
                 default:
                     continue;
             }
-            break;
+            if(flag_MOVED)break;
         }
         if (score > best_score) best_score = score;
     } while (1);
@@ -238,7 +263,9 @@ void goLeft(){
     for (i = 0; i < board_SIZE; i++){
         for (j = 1; j < board_SIZE; j++){
             int x=j, y=i;
+            if(board[y][x] == 0)continue; //optimization
             while (board[y][x-1] == 0 && x > 0){
+                flag_MOVED = true;
                 board[y][x-1] = board[y][x];
                 board[y][x--] = 0;
             }
@@ -249,6 +276,7 @@ void goLeft(){
         for (j = 0; j < board_SIZE; j++){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i][j+1] && j < 3){
+                flag_MOVED = true;
                 score += board[i][j] *= 2;
                 board[i][j+1] = 0;
             }
@@ -258,7 +286,9 @@ void goLeft(){
     for (i = 0; i < board_SIZE; i++){
         for (j = 1; j < board_SIZE; j++){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y][x-1] == 0 && x > 0){
+                flag_MOVED = true;
                 board[y][x-1] = board[y][x];
                 board[y][x--] = 0;
             }
@@ -271,7 +301,9 @@ void goRight(){
     for (i = 0; i < board_SIZE; i++){
         for (j = board_SIZE-2; j >= 0; j--){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y][x+1] == 0 && x < board_SIZE-1){
+                flag_MOVED = true;
                 board[y][x+1] = board[y][x];
                 board[y][x++] = 0;
             }
@@ -282,6 +314,7 @@ void goRight(){
         for (j = board_SIZE-1; j >= 0; j--){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i][j-1] && j > 0){
+                flag_MOVED = true;
                 score += board[i][j] *= 2;
                 board[i][j-1] = 0;
             }
@@ -291,7 +324,9 @@ void goRight(){
     for (i = 0; i < board_SIZE; i++){
         for (j = board_SIZE-2; j >= 0; j--){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y][x+1] == 0 && x < board_SIZE-1){
+                flag_MOVED = true;
                 board[y][x+1] = board[y][x];
                 board[y][x++] = 0;
             }
@@ -304,7 +339,9 @@ void goUp(){
     for (i = 1; i < board_SIZE; i++){
         for (j = 0; j < board_SIZE; j++){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y-1][x] == 0 && y > 0){
+                flag_MOVED = true;
                 board[y-1][x] = board[y][x];
                 board[y--][x] = 0;
             }
@@ -315,6 +352,7 @@ void goUp(){
         for (j = 0; j < board_SIZE; j++){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i+1][j] && i < board_SIZE-1){
+                flag_MOVED = true;
                 score += board[i][j] *= 2;
                 board[i+1][j] = 0;
             }
@@ -324,7 +362,9 @@ void goUp(){
     for (i = 1; i < board_SIZE; i++){
         for (j = 0; j < board_SIZE; j++){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y-1][x] == 0 && y > 0){
+                flag_MOVED = true;
                 board[y-1][x] = board[y][x];
                 board[y--][x] = 0;
             }
@@ -337,7 +377,9 @@ void goDown(){
     for (i = board_SIZE-2; i >= 0; i--){
         for (j = 0; j < board_SIZE; j++){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y+1][x] == 0 && y < board_SIZE-1){
+                flag_MOVED = true;
                 board[y+1][x] = board[y][x];
                 board[y++][x] = 0;
             }
@@ -348,6 +390,7 @@ void goDown(){
         for (j = 0; j < board_SIZE; j++){
             if (board[i][j] == 0) continue;
             if (board[i][j] == board[i-1][j] && i > 0){
+                flag_MOVED = true;
                 score += board[i][j] *= 2;
                 board[i-1][j] = 0;
             }
@@ -357,7 +400,9 @@ void goDown(){
     for (i = board_SIZE-2; i >= 0; i--){
         for (j = 0; j < board_SIZE; j++){
             int x=j, y=i;
+            if(board[y][x] == 0)continue;
             while (board[y+1][x] == 0 && y < board_SIZE-1){
+                flag_MOVED = true;
                 board[y+1][x] = board[y][x];
                 board[y++][x] = 0;
             }
