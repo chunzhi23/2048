@@ -3,4 +3,6 @@ This is [2048](https://en.wikipedia.org/wiki/2048_(video_game)), the video game 
 
 ## Getting Started
 ### How to use
-![image](https://user-images.githubusercontent.com/80033023/136498067-11eebfd4-c3b0-4619-bac3-3d76e077ecfd.png | width=100)
+<img src="https://user-images.githubusercontent.com/80033023/136502714-43e826ec-bde1-498e-ad2f-ed40fdd6cfcb.png" width="600">
+
+#### Operation keys
