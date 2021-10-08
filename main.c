@@ -9,7 +9,7 @@
 int score;
 int best_score;
 
-int board_SIZE = 2;
+int board_SIZE = 4;
 int board[10][10]; //Global variables are automatically set to 0
 bool flag_MOVED; //variable checking which the numbers have moved
 
@@ -133,24 +133,28 @@ void printInterface(){
     gotoxy(x+22+(board_SIZE-4)*4,y+15); printf("▽   : Pull Down");
 
 }
+
 void printBoardTop(int SIZE){
     printf("┌");
     for(int i = 0; i < SIZE - 1 ; i++)printf("───┬");
     printf("───┐");
     return;
 }
+
 void printBoardMid(int SIZE){
     printf("├");
     for(int i = 0; i < SIZE - 1 ; i++)printf("───┼");
     printf("───┤");
     return;
 }
+
 void printBoardBottom(int SIZE){
     printf("└");
     for(int i = 0; i < SIZE - 1 ; i++)printf("───┴");
     printf("───┘");
     return;
 }
+
 void printBoard(){
     int x=6, y=11, i, j;
 
@@ -170,21 +174,27 @@ void printBoard(){
         }
     }
 }
+
 typedef struct _coord{
     int x;
     int y;
 } coord;
+
 bool checkBoardCoord(coord c){
     int target = board[c.y][c.x];
+
     coord cx = c;
     cx.x++;
     coord cy = c;
     cy.y++;
+
     bool flag=false;
-    if(c.x!=board_SIZE-1)flag = (board[c.y][c.x+1]==target)?true:checkBoardCoord(cx);
-    if(c.y!=board_SIZE-1 && flag == false)flag = (board[c.y+1][c.x]==target)?true:checkBoardCoord(cy);
+
+    if(c.x != board_SIZE-1) flag = (board[c.y][c.x+1] == target) ? true : checkBoardCoord(cx);
+    if(c.y != board_SIZE-1 && flag == false) flag = (board[c.y+1][c.x] == target) ? true : checkBoardCoord(cy);
     return flag;
 }
+
 bool checkGameOver(){
     coord p;
     p.x=0;
@@ -207,7 +217,7 @@ void play(){
             }
         }
 
-        if (tmp == 0)if(!checkGameOver())break;
+        if (tmp == 0) if(!checkGameOver()) break;
 
         srand(time(NULL));
         int pos1 = rand() % tmp;
@@ -225,9 +235,11 @@ void play(){
             else board[empty[pos1][0]][empty[pos1][1]] = 4;
             tmp--;
         }
+
         printInterface();
         printBoard();
-        if(tmp == 0)if(!checkGameOver())break;
+
+        if(tmp == 0) if(!checkGameOver()) break;
         flag_MOVED = false;
         while (1){
             e = getch();
@@ -251,7 +263,7 @@ void play(){
                 default:
                     continue;
             }
-            if(flag_MOVED)break;
+            if(flag_MOVED) break;
         }
         if (score > best_score) best_score = score;
     } while (1);
@@ -263,7 +275,7 @@ void goLeft(){
     for (i = 0; i < board_SIZE; i++){
         for (j = 1; j < board_SIZE; j++){
             int x=j, y=i;
-            if(board[y][x] == 0)continue; //optimization
+            if(board[y][x] == 0) continue; //optimization
             while (board[y][x-1] == 0 && x > 0){
                 flag_MOVED = true;
                 board[y][x-1] = board[y][x];
