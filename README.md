@@ -32,3 +32,6 @@ Method is the same as 2048.
 
 You can use Operation keys to manipulate, and it'll be it!
 
+When the game ends:
+
+<img src="https://user-images.githubusercontent.com/80033023/136656387-a93f60ac-3f93-460f-92d6-8033775463bc.png" width="600">
